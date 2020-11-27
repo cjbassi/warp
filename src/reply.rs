@@ -422,12 +422,12 @@ impl Reply for ::http::Error {
 impl<T, E> Reply for Result<T, E>
 where
     T: Reply + Send,
-    E: Reply + Send
+    E: Reply + Send,
 {
     fn into_response(self) -> Response {
         match self {
             Ok(o) => o.into_response(),
-            Err(e) => e.into_response()
+            Err(e) => e.into_response(),
         }
     }
 }
