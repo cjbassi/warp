@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/warp/0.2.1")]
+#![doc(html_root_url = "https://docs.rs/warp/0.3.1")]
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 #![cfg_attr(test, deny(warnings))]
@@ -80,7 +80,7 @@
 //! ## Testing
 //!
 //! Testing your web services easily is extremely important, and warp provides
-//! a [`test`](test) module to help send mocked requests through your service.
+//! a [`test`](self::test) module to help send mocked requests through your service.
 //!
 //! [Filter]: trait.Filter.html
 //! [reject]: reject/index.html
@@ -106,6 +106,9 @@ pub use self::filter::Filter;
 // This otherwise shows a big dump of re-exports in the doc homepage,
 // with zero context, so just hide it from the docs. Doc examples
 // on each can show that a convenient import exists.
+#[cfg(feature = "compression")]
+#[doc(hidden)]
+pub use self::filters::compression;
 #[cfg(feature = "multipart")]
 #[doc(hidden)]
 pub use self::filters::multipart;
@@ -129,6 +132,7 @@ pub use self::filters::{
     header,
     // header() function
     header::header,
+    host,
     log,
     // log() function
     log::log,
@@ -140,8 +144,12 @@ pub use self::filters::{
     // query() function
     query::query,
     sse,
+    trace,
+    // trace() function
+    trace::trace,
 };
 // ws() function
+pub use self::filter::wrap_fn;
 #[cfg(feature = "websocket")]
 #[doc(hidden)]
 pub use self::filters::ws::ws;

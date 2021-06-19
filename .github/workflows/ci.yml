@@ -35,7 +35,7 @@ jobs:
 
     strategy:
       matrix:
-        build: [stable, beta, nightly, tls, no-default-features]
+        build: [stable, beta, nightly, tls, no-default-features, compression]
 
         include:
           - build: beta
@@ -45,10 +45,10 @@ jobs:
             benches: true
           - build: tls
             features: "--features tls"
-          - build: uds
-            features: "--features tokio/uds"
           - build: no-default-features
             features: "--no-default-features"
+          - build: compression
+            features: "--features compression"
 
 
     steps:
@@ -94,4 +94,4 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: rustdoc
-          args: -- -D intra-doc-link-resolution-failure
+          args: -- -D broken_intra_doc_links
